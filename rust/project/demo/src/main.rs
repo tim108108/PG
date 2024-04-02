@@ -50,15 +50,14 @@ fn a_fun(){
 	println!("loop_result * 10 = {loop_result}");
 	
 	cnt0 = 0;
-	print!("\nwhile loop:");
+	print!("\nwhile loop: ");
 	while  cnt0 < 10 {
 		print!("{} ",cnt0);
 		cnt0 += 1;
 	}
 	
-	cnt0 = 0;
-	print!("\nfor loop:");
-	for i in 0..10 {
+	print!("\n  for loop: ");
+	for i in (0..10).rev() {	// reverse
 		print!("{i} ");
 	}
 	println!();

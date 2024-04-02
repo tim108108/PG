@@ -1,8 +1,8 @@
 ## RUST
 
-[Rust入門祕籍](https://shihyu.github.io/rust_hacks/ch1/00.html)
-[Rust 程式設計語言](https://rust-lang.tw/book-tw/ch00-00-introduction.html)
-[Rust语言圣经(Rust Course)](https://course.rs/about-book.html)
+- [Rust入門祕籍](https://shihyu.github.io/rust_hacks/ch1/00.html)
+- [Rust 程式設計語言](https://rust-lang.tw/book-tw/ch00-00-introduction.html)
+- [Rust语言圣经(Rust Course)](https://course.rs/about-book.html)
 
 ## 安裝
 ```sh
