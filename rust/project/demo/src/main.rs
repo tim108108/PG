@@ -1,21 +1,80 @@
-// use std::io;
-// use std::f64::consts::PI; //float f64 f32
-// use std::f32::MAX_10_EXP;
-// use std::u32::MAX; // unsign int
-// use std::i32::MIN; //int 
-// use std::cmp::Ordering;
-// use rand::Rng;
+use std::io;
+use std::f64::consts::PI; //float f64 f32
+use std::f32::MAX_10_EXP;
+use std::u32::MAX; // unsign int
+use std::i32::MIN; //int 
+use std::cmp::Ordering;
+use rand::Rng;
 
 fn main() {
+	let enable = 0;
 	println!("Hello, world!\n");
 
-	// type_fun();
-	// guess_fun();
-	// println!("2+5={}",plus_five(2));
-	a_fun();
+	if enable == 1{
+	type_fun();
+	guess_fun();
+	println!("2+5={}",plus_five(2));
+	common_fun();
+	}
+	string_fun();
 }
 
-fn a_fun(){
+fn string_fun(){
+	//init str variable
+	let mut s = String::from("First!!");
+	println!("{}",s);
+	s.push_str(", and second!!");
+	println!("{}",s);
+	
+	//move 
+	let s1 = String::from("this str1");
+	let s2 = s1;
+	println!("move: {}", s2);
+	
+	//clone (for heap)
+	let s1 = String::from("this str");
+	let s2 = s1.clone();
+	println!("clone: {}, {}",s1, s2);
+
+	//copy (for stack)
+	let s1 = 5;
+	let s2 = s1;
+	println!("copy: {}, {}", s1, s2);
+
+	//owner and function
+	let s1 = String::from("take ownership");
+	take_ownership(s1.clone());	//should use clone value pass  to function
+	let s2 = 5;
+	make_copy(s2);
+	println!("pass to function, heap: {}, stack: {}", s1, s2);
+
+	//return and scope
+
+	let s1 = give_ownership();
+	let s2 = String::from("str2");
+	let s3 = take_and_give_bake(s2); //	move s2 to function
+	let (s4, len) = calculate_length(s1.clone());	// clone s1 to function
+	println!("s1: {}, s3: {}, s4: {}, len: {}", s1, s3, s4, len);
+}
+fn take_ownership(some_string: String){
+	println!("{}", some_string);
+}
+fn make_copy(some_number: i32){
+	println!("{}",some_number);
+}
+fn give_ownership()->String{
+	let some_string = String::from("str1");
+	some_string
+}
+fn take_and_give_bake(some_string: String) -> String{
+	some_string
+}
+fn calculate_length(s: String) -> (String, usize){
+	let length = s.len();
+	(s, length)
+}
+
+fn common_fun(){
 	let x = 5;
 	println!("x = {x}");
 	let y = {
@@ -62,7 +121,7 @@ fn a_fun(){
 	}
 	println!();
 }
-/*
+
 fn plus_five(p1: i32) -> i32{
 	p1 + 5	//equal "return p1+5"
 }
@@ -114,4 +173,4 @@ fn type_fun(){
 	println!("t0:{t0}, t1:{t1}, t2:{t2}, t3{t3}, t4:{t4}");
 	println!("tup.0:{}, tup.4:{}星期ㄐ[0]:{}, x0[3]:{}", tup.0, tup.4, 星期ㄐ[0], x0[3]);
 	println!();
-}*/
+}
