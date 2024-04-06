@@ -49,12 +49,19 @@ fn string_fun(){
 	println!("pass to function, heap: {}, stack: {}", s1, s2);
 
 	//return and scope
-
 	let s1 = give_ownership();
 	let s2 = String::from("str2");
 	let s3 = take_and_give_bake(s2); //	move s2 to function
 	let (s4, len) = calculate_length(s1.clone());	// clone s1 to function
 	println!("s1: {}, s3: {}, s4: {}, len: {}", s1, s3, s4, len);
+
+	//refer and borrow
+	let s1 = String::from("12345");
+	let len = calculate_refer_length(&s1);
+	println!("s1: {}, refer s1 len: {}", s1, len);
+	let mut s1 = String::from("12345");
+	let len = add_refer_length(&mut s1);
+	println!("s1: {}, refer s1 len: {}", s1, len);
 }
 fn take_ownership(some_string: String){
 	println!("{}", some_string);
@@ -72,6 +79,13 @@ fn take_and_give_bake(some_string: String) -> String{
 fn calculate_length(s: String) -> (String, usize){
 	let length = s.len();
 	(s, length)
+}
+fn calculate_refer_length(s: &String) -> usize{
+	s.len()
+}
+fn add_refer_length(s: &mut String) -> usize{
+	s.push_str("6789");
+	s.len()
 }
 
 fn common_fun(){
