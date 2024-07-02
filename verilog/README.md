@@ -3,8 +3,8 @@
 
 ## 安裝環境
 iverilog + GTKWave  
-安装iverilog：`sudo apt-get install iverilog`  
-安装GTKWave：`sudo apt-get install gtkwave`  
+安装iverilog：`sudo apt install iverilog`  
+安装GTKWave：`sudo apt install gtkwave`  
 
 ## DeltaMOOCx
 https://youtube.com/playlist?list=PLI6pJZaOCtF3_-vE7VUn9RdhQ6KXpcFQD&si=KG4upjZ-4argRTTQ  
@@ -12,3 +12,16 @@ https://youtube.com/playlist?list=PLI6pJZaOCtF3_-vE7VUn9RdhQ6KXpcFQD&si=KG4upjZ-
 ## refer
 https://steveicarus.github.io/iverilog/  
 https://zhuanlan.zhihu.com/p/95081329
+
+### docker 環境
+```docker
+docker build -t verilog_image .
+docker run -it -e DISPLAY=$DISPLAY -v ./project:/app -v /tmp/.X11-unix:/tmp/.X11-unix --name verilog_container verilog_image 
+
+docker run -it --rm -e DISPLAY=$DISPLAY -v ./project:/app -v /tmp/.X11-unix:/tmp/.X11-unix --name verilog_container verilog_image 
+docker run -d --name verilog_container verilog_image 
+docker exec -it verilog_container /bin/bash
+```
+> 1. 建立docker image
+> 2. 背景執行docker container
+> 3. 執行docker container
