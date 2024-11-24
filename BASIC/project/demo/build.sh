@@ -1,0 +1,1 @@
+fbc -lang qb *.bas
