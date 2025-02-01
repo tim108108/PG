@@ -15,11 +15,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 - `cargo run ` 編譯後執行
 
 ### docker 環境
-```docker
+```sh
 docker build -t rust_image .
 docker run -it -v ./project:/app --name rust_container rust_image 
-
-docker run -d --name rust_container rust_image 
 docker exec -it rust_container /bin/bash
 ```
 > 1. 建立docker image
