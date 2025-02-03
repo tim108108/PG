@@ -1,11 +1,22 @@
 fn main() {
     println!("\nHello, world!");
+    new_tuple();
     new_array();
     new_vector();
 }
 
 fn new_tuple() {
-    
+    let t_1 = (1, 2.2, 'c', "edfg");
+    let (inedx1, size1, code1, name1): (i32, f32, char, &str) = t_1;
+    let (inedx2, size2, code2, name2) = t_1;
+    let x: () = (); //unit
+
+    print!("\n======== fn new_tuple ========\n");
+
+    println!("t_1.0: {}, t_1.1: {}, t_1.2: {}, t_1.3: {}",t_1.0, t_1.1, t_1.2, t_1.3);
+    println!("inedx1: {}, size1: {}, code1: {}, name1: {}",inedx1, size1, code1, name1);
+    println!("inedx2: {}, size2: {}, code2: {}, name2: {}",inedx2, size2, code2, name2);
+    println!("{:?}", x);
 }
 
 fn new_array() {
