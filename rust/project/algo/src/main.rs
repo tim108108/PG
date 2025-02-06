@@ -87,12 +87,18 @@ fn new_vector() {
 }
 
 fn new_struct() {
+    #[derive(Debug, Clone)]
+    struct Color(i32, i32, i32);
+    let black = Color(1, 2, 3);
+
+    #[derive(Debug, Clone)]
     struct Person{
         name: String,
         age: u32,
         email: String, // 最後一個字段的逗號可省略，但建議保留
+        skin: Color,
       }
-    
+      
     let name = String::from("junmajinlong");
     let email = String::from("junmajinlong@xx.com");
     
@@ -100,11 +106,27 @@ fn new_struct() {
     name,
     email,
     age: 23,
+    skin: black.clone(),
     };
     
     let mut user2 = Person{
     name: String::from("gaoxiaofang"),
     email: String::from("gaoxiaofang@yy.com"),
-    ..user1
+    ..user1.clone()
     };
+    user2.age = user2.age + 10;
+    
+    let user3 = Person{
+        name: String::from("gaoxiaolin"),
+        ..user2.clone()
+        };
+    
+    
+
+    print!("\n======== fn new_struct ========\n");
+    println!("black: {}, {}, {}", black.0, black.1, black.2); 
+    println!("user1.name: {}, user1.age: {}, user1.email: {}, user1.skin: {:?}", user1.name ,user1.age, user1.email, user1.skin);
+    println!("user2: {:?}", user2); 
+    println!("user3: {:?}", user3); 
+    
 }
