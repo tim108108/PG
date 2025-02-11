@@ -4,6 +4,7 @@ fn main() {
     new_array();
     new_vector();
     new_struct();
+    new_enum();
 }
 
 fn new_tuple() {
@@ -127,4 +128,38 @@ fn new_struct() {
     println!("user2: {:?}", user2); 
     println!("user3: {:?}", user3); 
     
+}
+
+fn new_enum() {
+    #[derive(Debug)]
+    #[allow(dead_code)]
+    enum Message {
+        Quit,
+        ChangeColor(i32, i32, i32),
+        Move { x: i32, y: i32 },
+        Write(String),
+    }
+    #[derive(Debug)]
+    #[allow(dead_code)]
+    enum BoardGameTurn {
+        Move { squares: i32 },
+        Pass,
+    }
+    
+    let x: Message = Message::Move { x: 3, y: 4 };
+    let y: BoardGameTurn = BoardGameTurn::Move { squares: 1 };
+    println!("x: {:?}", x); 
+    println!("y: {:?}", y); 
+
+    let m = Message::Write("Hello, world".to_string());
+    fn foo(x: String) -> Message {
+        Message::Write(x)
+    }
+    let x = foo("Hello, world".to_string());
+    println!("m: {:?}", m); 
+    println!("x: {:?}", x); 
+
+    let v = vec!["Hello".to_string(), "World".to_string()];
+    let v1: Vec<Message> = v.into_iter().map(Message::Write).collect();
+    println!("v1: {:?}", v1); 
 }
