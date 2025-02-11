@@ -120,8 +120,6 @@ fn new_struct() {
         name: String::from("gaoxiaolin"),
         ..user2.clone()
         };
-    
-    
 
     print!("\n======== fn new_struct ========\n");
     println!("black: {}, {}, {}", black.0, black.1, black.2); 
