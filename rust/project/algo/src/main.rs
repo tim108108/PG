@@ -145,7 +145,7 @@ fn new_enum() {
         Move { squares: i32 },
         Pass,
     }
-    
+    print!("\n======== fn new_enum ========\n");
     let x: Message = Message::Move { x: 3, y: 4 };
     let y: BoardGameTurn = BoardGameTurn::Move { squares: 1 };
     println!("x: {:?}", x); 
