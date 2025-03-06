@@ -5,6 +5,8 @@ fn main() {
     new_vector();
     new_struct();
     new_enum();
+    new_if();
+    new_match();
 }
 
 fn new_tuple() {
@@ -151,15 +153,63 @@ fn new_enum() {
     println!("x: {:?}", x); 
     println!("y: {:?}", y); 
 
-    let m = Message::Write("Hello, world".to_string());
+    let m = Message::Write("Hello, world 1".to_string());
     fn foo(x: String) -> Message {
         Message::Write(x)
     }
-    let x = foo("Hello, world".to_string());
+    let x = foo("Hello, world 2".to_string());
     println!("m: {:?}", m); 
-    println!("x: {:?}", x); 
+    println!("x: {:?}", x);     
 
     let v = vec!["Hello".to_string(), "World".to_string()];
     let v1: Vec<Message> = v.into_iter().map(Message::Write).collect();
     println!("v1: {:?}", v1); 
+}
+
+fn new_if() {
+    let x = 5;
+    let y = if x == 5 { 10 } else { 15 }; // y: i32
+
+    print!("\n======== fn new_if ========\n");
+    if x == 5 {
+        println!("x is five!");
+    } else if x == 6 {
+        println!("x is six!");
+    } else {
+        println!("x is not five or six :(");
+    }
+    println!("y = {:?}", y);
+}
+
+fn new_match() {
+    enum Message {
+        Quit,
+        ChangeColor(i32, i32, i32),
+        Move { x: i32, y: i32 },
+        Write(String),
+    }
+    
+    fn quit() { /* ... */ }
+    fn change_color(r: i32, g: i32, b: i32) { /* ... */ }
+    fn move_cursor(x: i32, y: i32) { /* ... */ }
+    fn process_message(msg: Message) {
+        match msg {
+            Message::Quit => quit(),
+            Message::ChangeColor(r, g, b) => change_color(r, g, b),
+            Message::Move { x: x, y: y } => move_cursor(x, y),
+            Message::Write(s) => println!("{}", s),
+        };
+    }
+    print!("\n======== fn new_match ========\n");
+    let x = 5;
+    let y: Message = Message::Write("Hello, world".to_string());
+
+    let number = match x {
+        1 => "one",
+        2 => "two",
+        3 => "three",
+        _ => "something else",
+    };
+    println!("number{}",number);
+    process_message(y);
 }
