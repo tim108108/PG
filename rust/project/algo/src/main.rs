@@ -182,6 +182,7 @@ fn new_if() {
 }
 
 fn new_match() {
+    #[allow(dead_code)]
     enum Message {
         Quit,
         ChangeColor(i32, i32, i32),
@@ -190,26 +191,36 @@ fn new_match() {
     }
     
     fn quit() { /* ... */ }
-    fn change_color(r: i32, g: i32, b: i32) { /* ... */ }
-    fn move_cursor(x: i32, y: i32) { /* ... */ }
+    fn change_color(mut r: i32, mut g: i32, mut b: i32) { 
+        println!("change_color old: R={}, G={}, B={}", r, g, b);
+        r /= 2;
+        g += 2;
+        b *= 2;
+        println!("change_color new: R={}, G={}, B={}", r, g, b);
+    }
+    fn move_cursor(x: i32, y: i32) {
+        println!("move_cursor: x={}, y={}",x, y);
+    }
     fn process_message(msg: Message) {
         match msg {
             Message::Quit => quit(),
             Message::ChangeColor(r, g, b) => change_color(r, g, b),
-            Message::Move { x: x, y: y } => move_cursor(x, y),
+            Message::Move { x, y } => move_cursor(x, y),
             Message::Write(s) => println!("{}", s),
         };
     }
     print!("\n======== fn new_match ========\n");
     let x = 5;
     let y: Message = Message::Write("Hello, world".to_string());
+    let z: Message = Message::ChangeColor(6,7,8);
 
     let number = match x {
-        1 => "one",
+        0 | 1 => "one",
         2 => "two",
         3 => "three",
         _ => "something else",
     };
-    println!("number{}",number);
+    println!("number: {}",number);
     process_message(y);
+    process_message(z);
 }

@@ -1,2 +1,2 @@
-FROM rust
+FROM rust:latest
 WORKDIR /app
