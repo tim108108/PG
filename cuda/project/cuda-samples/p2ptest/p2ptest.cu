@@ -603,7 +603,7 @@ void outputLatencyMatrix(int numGPUs, bool p2p, P2PDataTransfer p2p_method) {
 }
 
 void peer2peer(int numElems, int numGPUs, bool p2p, P2PDataTransfer p2p_method) {
-  int repeat = 5;
+  int repeat = 1;
   volatile int *flag = NULL;
   vector<int *> buffers(numGPUs);
   vector<int *> buffersD2D(numGPUs);  // buffer for D2D, that is, intra-GPU copy
@@ -619,11 +619,11 @@ void peer2peer(int numElems, int numGPUs, bool p2p, P2PDataTransfer p2p_method) 
     cudaStreamCreateWithFlags(&stream[d], cudaStreamNonBlocking);
     cudaMalloc(&buffers[d], numElems * sizeof(int));
     cudaCheckError();
-    cudaMemset(buffers[d], 0, numElems * sizeof(int));
+    cudaMemset(buffers[d], 1, numElems * sizeof(int));
     cudaCheckError();
     cudaMalloc(&buffersD2D[d], numElems * sizeof(int));
     cudaCheckError();
-    cudaMemset(buffersD2D[d], 0, numElems * sizeof(int));
+    cudaMemset(buffersD2D[d], 1, numElems * sizeof(int));
     cudaCheckError();
     cudaEventCreate(&start[d]);
     cudaCheckError();
@@ -676,6 +676,8 @@ void peer2peer(int numElems, int numGPUs, bool p2p, P2PDataTransfer p2p_method) 
       } else {
         if (p2p_method == P2P_WRITE) {
           performP2PCopy(buffers[j], j, buffers[i], i, numElems, repeat, access,
+                         stream[i]);
+          performP2PCopy(buffers[i], i, buffers[j], j, numElems, repeat, access,
                          stream[i]);
         } else {
           performP2PCopy(buffers[i], i, buffers[j], j, numElems, repeat, access,
@@ -746,10 +748,10 @@ void peer2peer(int numElems, int numGPUs, bool p2p, P2PDataTransfer p2p_method) 
 }
 
 int main(int argc, char **argv) {
-  int numGPUs, numElems = 40000000, tCase = 0;
+  int numGPUs, numElems = 40000000, tCase = 1, p2pen = 1;
   P2PDataTransfer p2p_method = P2P_WRITE;
 
-  printf("[%s]\n", sSampleName);
+
   
   // process command line args
   if (checkCmdLineFlag(argc, (const char **)argv, "help")) {
@@ -774,11 +776,15 @@ int main(int argc, char **argv) {
     numGPUs = getCmdLineArgumentInt(argc, (const char **)argv, "numGPUs");
   }
   // test_case
-  if (checkCmdLineFlag(argc, (const char **)argv, "Case")) {
-    tCase = getCmdLineArgumentInt(argc, (const char **)argv, "Case");
+  if (checkCmdLineFlag(argc, (const char **)argv, "case")) {
+    tCase = getCmdLineArgumentInt(argc, (const char **)argv, "case");
+  }
+  // test_case
+  if (checkCmdLineFlag(argc, (const char **)argv, "p2pen")) {
+    p2pen = getCmdLineArgumentInt(argc, (const char **)argv, "p2pen");
   }
 
-  
+  printf("\n\n[%s]\n\n", sSampleName);
   /*
   cudaGetDeviceCount(&numGPUs);
   cudaCheckError();
@@ -820,15 +826,16 @@ int main(int argc, char **argv) {
   */
 
   switch(tCase){
-    case 0:
-    if (p2p_method == P2P_WRITE) {
+    case 1:
+    if (p2pen == 0) {
       printf("Unidirectional P2P=Disabled test\n");
       peer2peer(numElems, numGPUs, false, p2p_method);
-      
+    } else if (p2pen == 1){
       printf("Unidirectional P2P=Enabled test\n");
       peer2peer(numElems, numGPUs, true, p2p_method);
       }
-    case 1:
+      break;
+    case 2:
       if (p2p_method == P2P_WRITE) {
         printf("Unidirectional P2P=Disabled Bandwidth (P2P Writes) Matrix (GB/s)\n");
         outputBandwidthMatrix(numElems, numGPUs, false, P2P_WRITE);
@@ -843,14 +850,14 @@ int main(int argc, char **argv) {
         outputBandwidthMatrix(numElems, numGPUs, true, p2p_method);
       }
       break;
-    case 2: 
+    case 3: 
       printf("Bidirectional P2P=Disabled Bandwidth Matrix (GB/s)\n");
       outputBidirectionalBandwidthMatrix(numElems, numGPUs, false);
       
       printf("Bidirectional P2P=Enabled Bandwidth Matrix (GB/s)\n");
       outputBidirectionalBandwidthMatrix(numElems, numGPUs, true);
       break;
-    case 3: 
+    case 4: 
       if (p2p_method == P2P_WRITE) {
         printf("P2P=Disabled Latency (P2P Writes) Matrix (us)\n");
         outputLatencyMatrix(numGPUs, false, P2P_WRITE);
@@ -864,6 +871,8 @@ int main(int argc, char **argv) {
         printf("P2P=Enabled Latency (P2P Reads) Matrix (us)\n");
         outputLatencyMatrix(numGPUs, true, p2p_method);
       }
+      break;
+    default:
       break;
   }
   printf(
