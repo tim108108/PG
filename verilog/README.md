@@ -8,6 +8,7 @@ iverilog + GTKWave
 
 ## DeltaMOOCx
 https://youtube.com/playlist?list=PLI6pJZaOCtF3_-vE7VUn9RdhQ6KXpcFQD&si=KG4upjZ-4argRTTQ  
+https://ys-hayashi.me/2024/03/systemverilog-useful-syntax-01/
 
 ## refer
 https://steveicarus.github.io/iverilog/  
