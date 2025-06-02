@@ -5,7 +5,7 @@
 
 int setbit(int ,int ,bool);/*setbit，目標,位置,set/clr*/
 void showbinary(int);
-enum{
+extern enum{
     set,
     clr,
     rev,

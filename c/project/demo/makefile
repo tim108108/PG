@@ -13,3 +13,5 @@ bitwise.o:bitwise.h
 
 clean:
 	rm *.o *.out
+clr:
+	rm *.o *.out
