@@ -64,3 +64,4 @@ cuda/project/cuda-samples/p2ptest/Makefile
 cuda/project/cuda-samples/p2ptest/p2ptest
 
 .DS_Store
+verilog/project/risc-v_cluster/riscv-gnu-toolchain-rv32i
