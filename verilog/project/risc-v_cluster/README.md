@@ -12,7 +12,7 @@
 ### docker 環境
 ```docker
 # build riscv_ctnr
-docker build -t riscv_img .
+docker build --no-cache -t riscv_img .
 # 執行退出後自動刪除
 docker run -it --rm -e DISPLAY=$DISPLAY -v ./:/app -v /tmp/.X11-unix:/tmp/.X11-unix --name riscv_ctnr riscv_img 
 # 執行 riscv_ctnr

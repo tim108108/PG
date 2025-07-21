@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:latest
 WORKDIR /app/project/
 
 RUN apt update \
@@ -11,4 +11,4 @@ WORKDIR /app/project/riscv-gnu-toolchain-rv32i/build
 RUN ../configure --with-arch=rv32i --prefix=/opt/riscv32i 
 RUN make -j1 && export PATH=/opt/riscv32i/bin:$PATH 
 # RUN riscv32-unknown-elf-gcc --version
-WORKDIR /app/project/
+# WORKDIR /app/project/
