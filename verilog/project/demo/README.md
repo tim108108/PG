@@ -47,4 +47,21 @@ cd ..
 ```
 # FPGA教程
 强烈推荐学习此教程，[open-fpga-verilog-tutorial](https://github.com/Obijuan/open-fpga-verilog-tutorial/wiki/Home_EN) `src/basic/open-fpga-verilog-tutorial`目录中有对应的例程
+[Icarus Verilog](https://hackmd.io/@HankTsai/SkP1XmgpT)
 
+## dockerfile
+```
+docker build --no-cache -t verilog_image .
+docker run -it --rm -e DISPLAY=$DISPLAY -v ./:/app -v /tmp/.X11-unix:/tmp/.X11-unix --name verilog_container verilog_image
+```
+## iverilog && gtkwave
+```
+iverilog -o adder_tb adder.v adder_tb.v
+vvp adder_tb
+gtkwave adder_tb.vcd
+```
+```
+iverilog -o mean_tb mean.v mean_tb.v
+vvp mean_tb
+gtkwave mean_tb.vcd
+```

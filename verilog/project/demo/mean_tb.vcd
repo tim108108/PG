@@ -1,5 +1,5 @@
 $date
-	Sun Jul 24 22:31:15 2022
+	Wed Jul 30 13:46:33 2025
 $end
 $version
 	Icarus Verilog
@@ -30,6 +30,9 @@ $var integer 32 . seed1 [31:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
 #0
 $dumpvars
 bx .

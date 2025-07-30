@@ -1,0 +1,3 @@
+git config --global url."https://git.qemu.org/".insteadOf git://git.qemu-project.org/ && git config --global url."https://github.com/".insteadOf git://github.com/
+git clone https://github.com/riscv/riscv-gnu-toolchain riscv-gnu-toolchain-rv32i && cd riscv-gnu-toolchain-rv32i && git checkout -f 411d134 && git submodule update --init --recursive && mkdir build && cd build && ../configure --with-arch=rv32i --prefix=/opt/riscv32i && make -j
+export PATH=/opt/riscv32i/bin:$PATH && riscv32-unknown-elf-gcc --version

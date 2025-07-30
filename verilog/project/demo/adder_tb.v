@@ -1,4 +1,4 @@
-/*
+
 `timescale 1ns/100ps
 
 module CSA_3var_4b_test1;
@@ -32,8 +32,8 @@ begin
    $dumpvars(0,CSA_3var_4b_test1);
 end
 endmodule
-*/
 
+/*
 `include "define.v"
 `timescale 1ns/100ps
 
@@ -65,3 +65,4 @@ end
 end
 
 endmodule
+*/
