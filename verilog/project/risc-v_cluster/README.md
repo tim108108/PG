@@ -19,5 +19,7 @@ docker run -it --rm -e DISPLAY=$DISPLAY -v ./:/app -v /tmp/.X11-unix:/tmp/.X11-u
 docker run -it -e DISPLAY=$DISPLAY -v ./:/app -v /tmp/.X11-unix:/tmp/.X11-unix --name riscv_ctnr riscv_img 
 # 背景執行
 docker run -d --name riscv_ctnr riscv_img 
+# 執行riscv_ctnr
+sudo docker start riscv_ctnr
 # 進入 riscv_ctnr
 docker exec -it riscv_ctnr /bin/bash
