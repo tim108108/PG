@@ -1,0 +1,105 @@
+iverilog -o testbench.vvp -DCOMPRESSED_ISA testbench.v picorv32.v
+chmod -x testbench.vvp
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32imc -o firmware/start.o firmware/start.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32ic -Os --std=c99 -Werror -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes -pedantic  -ffreestanding -nostdlib -o firmware/irq.o firmware/irq.c
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32ic -Os --std=c99 -Werror -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes -pedantic  -ffreestanding -nostdlib -o firmware/print.o firmware/print.c
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32ic -Os --std=c99 -Werror -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes -pedantic  -ffreestanding -nostdlib -o firmware/hello.o firmware/hello.c
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32ic -Os --std=c99 -Werror -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes -pedantic  -ffreestanding -nostdlib -o firmware/sieve.o firmware/sieve.c
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32ic -Os --std=c99 -Werror -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes -pedantic  -ffreestanding -nostdlib -o firmware/multest.o firmware/multest.c
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32ic -Os --std=c99 -Werror -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes -pedantic  -ffreestanding -nostdlib -o firmware/stats.o firmware/stats.c
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/add.o -DTEST_FUNC_NAME=add \
+	-DTEST_FUNC_TXT='"add"' -DTEST_FUNC_RET=add_ret tests/add.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/addi.o -DTEST_FUNC_NAME=addi \
+	-DTEST_FUNC_TXT='"addi"' -DTEST_FUNC_RET=addi_ret tests/addi.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/and.o -DTEST_FUNC_NAME=and \
+	-DTEST_FUNC_TXT='"and"' -DTEST_FUNC_RET=and_ret tests/and.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/andi.o -DTEST_FUNC_NAME=andi \
+	-DTEST_FUNC_TXT='"andi"' -DTEST_FUNC_RET=andi_ret tests/andi.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/auipc.o -DTEST_FUNC_NAME=auipc \
+	-DTEST_FUNC_TXT='"auipc"' -DTEST_FUNC_RET=auipc_ret tests/auipc.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/beq.o -DTEST_FUNC_NAME=beq \
+	-DTEST_FUNC_TXT='"beq"' -DTEST_FUNC_RET=beq_ret tests/beq.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/bge.o -DTEST_FUNC_NAME=bge \
+	-DTEST_FUNC_TXT='"bge"' -DTEST_FUNC_RET=bge_ret tests/bge.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/bgeu.o -DTEST_FUNC_NAME=bgeu \
+	-DTEST_FUNC_TXT='"bgeu"' -DTEST_FUNC_RET=bgeu_ret tests/bgeu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/blt.o -DTEST_FUNC_NAME=blt \
+	-DTEST_FUNC_TXT='"blt"' -DTEST_FUNC_RET=blt_ret tests/blt.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/bltu.o -DTEST_FUNC_NAME=bltu \
+	-DTEST_FUNC_TXT='"bltu"' -DTEST_FUNC_RET=bltu_ret tests/bltu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/bne.o -DTEST_FUNC_NAME=bne \
+	-DTEST_FUNC_TXT='"bne"' -DTEST_FUNC_RET=bne_ret tests/bne.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/div.o -DTEST_FUNC_NAME=div \
+	-DTEST_FUNC_TXT='"div"' -DTEST_FUNC_RET=div_ret tests/div.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/divu.o -DTEST_FUNC_NAME=divu \
+	-DTEST_FUNC_TXT='"divu"' -DTEST_FUNC_RET=divu_ret tests/divu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/j.o -DTEST_FUNC_NAME=j \
+	-DTEST_FUNC_TXT='"j"' -DTEST_FUNC_RET=j_ret tests/j.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/jal.o -DTEST_FUNC_NAME=jal \
+	-DTEST_FUNC_TXT='"jal"' -DTEST_FUNC_RET=jal_ret tests/jal.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/jalr.o -DTEST_FUNC_NAME=jalr \
+	-DTEST_FUNC_TXT='"jalr"' -DTEST_FUNC_RET=jalr_ret tests/jalr.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/lb.o -DTEST_FUNC_NAME=lb \
+	-DTEST_FUNC_TXT='"lb"' -DTEST_FUNC_RET=lb_ret tests/lb.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/lbu.o -DTEST_FUNC_NAME=lbu \
+	-DTEST_FUNC_TXT='"lbu"' -DTEST_FUNC_RET=lbu_ret tests/lbu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/lh.o -DTEST_FUNC_NAME=lh \
+	-DTEST_FUNC_TXT='"lh"' -DTEST_FUNC_RET=lh_ret tests/lh.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/lhu.o -DTEST_FUNC_NAME=lhu \
+	-DTEST_FUNC_TXT='"lhu"' -DTEST_FUNC_RET=lhu_ret tests/lhu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/lui.o -DTEST_FUNC_NAME=lui \
+	-DTEST_FUNC_TXT='"lui"' -DTEST_FUNC_RET=lui_ret tests/lui.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/lw.o -DTEST_FUNC_NAME=lw \
+	-DTEST_FUNC_TXT='"lw"' -DTEST_FUNC_RET=lw_ret tests/lw.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/mul.o -DTEST_FUNC_NAME=mul \
+	-DTEST_FUNC_TXT='"mul"' -DTEST_FUNC_RET=mul_ret tests/mul.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/mulh.o -DTEST_FUNC_NAME=mulh \
+	-DTEST_FUNC_TXT='"mulh"' -DTEST_FUNC_RET=mulh_ret tests/mulh.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/mulhsu.o -DTEST_FUNC_NAME=mulhsu \
+	-DTEST_FUNC_TXT='"mulhsu"' -DTEST_FUNC_RET=mulhsu_ret tests/mulhsu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/mulhu.o -DTEST_FUNC_NAME=mulhu \
+	-DTEST_FUNC_TXT='"mulhu"' -DTEST_FUNC_RET=mulhu_ret tests/mulhu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/or.o -DTEST_FUNC_NAME=or \
+	-DTEST_FUNC_TXT='"or"' -DTEST_FUNC_RET=or_ret tests/or.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/ori.o -DTEST_FUNC_NAME=ori \
+	-DTEST_FUNC_TXT='"ori"' -DTEST_FUNC_RET=ori_ret tests/ori.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/rem.o -DTEST_FUNC_NAME=rem \
+	-DTEST_FUNC_TXT='"rem"' -DTEST_FUNC_RET=rem_ret tests/rem.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/remu.o -DTEST_FUNC_NAME=remu \
+	-DTEST_FUNC_TXT='"remu"' -DTEST_FUNC_RET=remu_ret tests/remu.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/sb.o -DTEST_FUNC_NAME=sb \
+	-DTEST_FUNC_TXT='"sb"' -DTEST_FUNC_RET=sb_ret tests/sb.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/sh.o -DTEST_FUNC_NAME=sh \
+	-DTEST_FUNC_TXT='"sh"' -DTEST_FUNC_RET=sh_ret tests/sh.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/simple.o -DTEST_FUNC_NAME=simple \
+	-DTEST_FUNC_TXT='"simple"' -DTEST_FUNC_RET=simple_ret tests/simple.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/sll.o -DTEST_FUNC_NAME=sll \
+	-DTEST_FUNC_TXT='"sll"' -DTEST_FUNC_RET=sll_ret tests/sll.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/slli.o -DTEST_FUNC_NAME=slli \
+	-DTEST_FUNC_TXT='"slli"' -DTEST_FUNC_RET=slli_ret tests/slli.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/slt.o -DTEST_FUNC_NAME=slt \
+	-DTEST_FUNC_TXT='"slt"' -DTEST_FUNC_RET=slt_ret tests/slt.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/slti.o -DTEST_FUNC_NAME=slti \
+	-DTEST_FUNC_TXT='"slti"' -DTEST_FUNC_RET=slti_ret tests/slti.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/sra.o -DTEST_FUNC_NAME=sra \
+	-DTEST_FUNC_TXT='"sra"' -DTEST_FUNC_RET=sra_ret tests/sra.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/srai.o -DTEST_FUNC_NAME=srai \
+	-DTEST_FUNC_TXT='"srai"' -DTEST_FUNC_RET=srai_ret tests/srai.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/srl.o -DTEST_FUNC_NAME=srl \
+	-DTEST_FUNC_TXT='"srl"' -DTEST_FUNC_RET=srl_ret tests/srl.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/srli.o -DTEST_FUNC_NAME=srli \
+	-DTEST_FUNC_TXT='"srli"' -DTEST_FUNC_RET=srli_ret tests/srli.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/sub.o -DTEST_FUNC_NAME=sub \
+	-DTEST_FUNC_TXT='"sub"' -DTEST_FUNC_RET=sub_ret tests/sub.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/sw.o -DTEST_FUNC_NAME=sw \
+	-DTEST_FUNC_TXT='"sw"' -DTEST_FUNC_RET=sw_ret tests/sw.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/xor.o -DTEST_FUNC_NAME=xor \
+	-DTEST_FUNC_TXT='"xor"' -DTEST_FUNC_RET=xor_ret tests/xor.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o tests/xori.o -DTEST_FUNC_NAME=xori \
+	-DTEST_FUNC_TXT='"xori"' -DTEST_FUNC_RET=xori_ret tests/xori.S
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -Os -mabi=ilp32 -march=rv32imc -ffreestanding -nostdlib -o firmware/firmware.elf \
+	-Wl,--build-id=none,-Bstatic,-T,firmware/sections.lds,-Map,firmware/firmware.map,--strip-debug \
+	firmware/start.o firmware/irq.o firmware/print.o firmware/hello.o firmware/sieve.o firmware/multest.o firmware/stats.o tests/add.o tests/addi.o tests/and.o tests/andi.o tests/auipc.o tests/beq.o tests/bge.o tests/bgeu.o tests/blt.o tests/bltu.o tests/bne.o tests/div.o tests/divu.o tests/j.o tests/jal.o tests/jalr.o tests/lb.o tests/lbu.o tests/lh.o tests/lhu.o tests/lui.o tests/lw.o tests/mul.o tests/mulh.o tests/mulhsu.o tests/mulhu.o tests/or.o tests/ori.o tests/rem.o tests/remu.o tests/sb.o tests/sh.o tests/simple.o tests/sll.o tests/slli.o tests/slt.o tests/slti.o tests/sra.o tests/srai.o tests/srl.o tests/srli.o tests/sub.o tests/sw.o tests/xor.o tests/xori.o -lgcc
+/opt/riscv32i/lib/gcc/riscv32-unknown-elf/8.2.0/../../../../riscv32-unknown-elf/bin/ld: cannot find -lgcc
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:109: firmware/firmware.elf] Error 1
